@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const csstree = require('css-tree');
 
-function readCssFile(fileDestionation) {
+function readCssFile(fileDestination) {
   try {
     const cssFile = fs.readFileSync(
-      path.resolve(process.cwd(), fileDestionation),
+      path.resolve(process.cwd(), fileDestination),
       'utf8'
     );
     return cssFile;
@@ -33,6 +33,14 @@ function getCustomProperties(cssFile) {
 
         if (node.type === 'Identifier') {
           VALUES.push({ value: node.name });
+        }
+
+        if (node.type === 'Number') {
+          VALUES.push({ value: node.value });
+        }
+
+        if (node.type === 'Percentage') {
+          VALUES.push({ value: node.value + '%' });
         }
 
         if (
@@ -67,11 +75,45 @@ function writeFileToJson(destination, obj) {
   }
 }
 
+function findPropertyInArray(arr, property) {
+  let item;
+
+  for (let index = 0; index < arr.length; index++) {
+    if (arr[index].property === property.value) {
+      item = arr[index];
+      break;
+    }
+  }
+
+  if (item === undefined) {
+    return undefined;
+  }
+
+  return { ...property, value: item.value };
+}
+
+function resolveCustomProperties(properties) {
+  const newProperties = properties.map(property => {
+    const pattern = new RegExp(/^--/);
+    return pattern.test(property.value)
+      ? findPropertyInArray(properties, property)
+      : property;
+  });
+  return newProperties;
+}
+
 function main(inputDirectory, outputDirectory) {
   const cssFile = readCssFile(inputDirectory);
-  const ROOT_PROPERTIES = getCustomProperties(cssFile);
+  const ROOT_PROPERTIES = resolveCustomProperties(getCustomProperties(cssFile));
 
   writeFileToJson(outputDirectory, ROOT_PROPERTIES);
 }
 
-module.exports = { main, readCssFile, getCustomProperties, writeFileToJson };
+module.exports = {
+  main,
+  readCssFile,
+  getCustomProperties,
+  writeFileToJson,
+  resolveCustomProperties,
+  findPropertyInArray
+};

@@ -1,0 +1,18 @@
+[
+  {
+    "property": "--mono-hue",
+    "value": "201"
+  },
+  {
+    "property": "--mono-saturation",
+    "value": "18%"
+  },
+  {
+    "property": "--mono-try",
+    "value": "#ff0000"
+  },
+  {
+    "property": "--demo",
+    "value": "#ff0000"
+  }
+]
