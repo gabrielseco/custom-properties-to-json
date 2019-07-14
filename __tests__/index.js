@@ -24,6 +24,8 @@ describe('Custom properties to json', () => {
         --font-size: 16px;
         --bg-primary: #fff;
         --color-primary: red;
+        --mono-hue: 15%;
+        --mono-saturation: 21
       }
 
       .hello {
@@ -43,6 +45,14 @@ describe('Custom properties to json', () => {
       {
         property: '--color-primary',
         value: 'red'
+      },
+      {
+        property: '--mono-hue',
+        value: '15%'
+      },
+      {
+        property: '--mono-saturation',
+        value: '21'
       }
     ]);
   });
