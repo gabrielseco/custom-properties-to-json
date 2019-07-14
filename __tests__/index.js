@@ -3,9 +3,7 @@ const {
   readCssFile,
   getCustomProperties,
   writeFileToJson,
-  main,
-  resolveCustomProperties,
-  findPropertyInArray
+  main
 } = require('./../src/index');
 
 describe('Custom properties to json', () => {
@@ -82,50 +80,5 @@ describe('Custom properties to json', () => {
     } catch (err) {
       console.log('err', err);
     }
-  });
-
-  it('should resolve custom properties', () => {
-    const properties = [
-      {
-        property: '--mono-hue',
-        value: '201'
-      },
-      {
-        property: '--demo',
-        value: '--mono-hue'
-      }
-    ];
-    const newProperties = resolveCustomProperties(properties);
-
-    expect(newProperties[1].value).toBe(newProperties[0].value);
-  });
-
-  it('should not find the property', () => {
-    const result = findPropertyInArray([], {
-      property: '--demo',
-      value: '--mono-hue'
-    });
-    expect(result).toBeUndefined();
-  });
-
-  it('should find the property', () => {
-    const result = findPropertyInArray(
-      [
-        {
-          property: '--dry-hue',
-          value: '21'
-        },
-        {
-          property: '--mono-hue',
-          value: '21'
-        }
-      ],
-      { property: '--demo', value: '--mono-hue' }
-    );
-
-    expect(result).toEqual({
-      property: '--demo',
-      value: '21'
-    });
   });
 });

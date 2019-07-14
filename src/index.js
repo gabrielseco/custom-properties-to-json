@@ -15,40 +15,19 @@ function readCssFile(fileDestination) {
 }
 
 function getCustomProperties(cssFile) {
-  const AST = csstree.parse(cssFile, { parseCustomProperty: true });
+  const AST = csstree.parse(cssFile);
 
   const DECLARATIONS = [];
   const VALUES = [];
 
   csstree.walk(AST, function(node) {
     if (node.type === 'PseudoClassSelector' && node.name === 'root') {
-      csstree.walk(this.rule.block, function(node) {
-        if (node.type === 'Declaration') {
-          DECLARATIONS.push({ property: node.property });
+      csstree.walk(this.rule.block, function(subNode) {
+        if (subNode.type === 'Declaration') {
+          DECLARATIONS.push({ property: subNode.property });
         }
-
-        if (node.type === 'Dimension') {
-          VALUES.push({ value: node.value + node.unit });
-        }
-
-        if (node.type === 'Identifier') {
-          VALUES.push({ value: node.name });
-        }
-
-        if (node.type === 'Number') {
-          VALUES.push({ value: node.value });
-        }
-
-        if (node.type === 'Percentage') {
-          VALUES.push({ value: node.value + '%' });
-        }
-
-        if (
-          node.type === 'HexColor' &&
-          node.value !== undefined &&
-          typeof node.value !== 'object'
-        ) {
-          VALUES.push({ value: '#' + node.value });
+        if (subNode.type === 'Raw') {
+          VALUES.push({ value: subNode.value.trim() });
         }
       });
     }
@@ -75,36 +54,9 @@ function writeFileToJson(destination, obj) {
   }
 }
 
-function findPropertyInArray(arr, property) {
-  let item;
-
-  for (let index = 0; index < arr.length; index++) {
-    if (arr[index].property === property.value) {
-      item = arr[index];
-      break;
-    }
-  }
-
-  if (item === undefined) {
-    return undefined;
-  }
-
-  return { ...property, value: item.value };
-}
-
-function resolveCustomProperties(properties) {
-  const newProperties = properties.map(property => {
-    const pattern = new RegExp(/^--/);
-    return pattern.test(property.value)
-      ? findPropertyInArray(properties, property)
-      : property;
-  });
-  return newProperties;
-}
-
 function main(inputDirectory, outputDirectory) {
   const cssFile = readCssFile(inputDirectory);
-  const ROOT_PROPERTIES = resolveCustomProperties(getCustomProperties(cssFile));
+  const ROOT_PROPERTIES = getCustomProperties(cssFile);
 
   writeFileToJson(outputDirectory, ROOT_PROPERTIES);
 }
@@ -113,7 +65,5 @@ module.exports = {
   main,
   readCssFile,
   getCustomProperties,
-  writeFileToJson,
-  resolveCustomProperties,
-  findPropertyInArray
+  writeFileToJson
 };

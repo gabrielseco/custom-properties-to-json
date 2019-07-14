@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [1.0.0-beta.1] - 2019-07-14
+
+### Added
+
+- Simplify the code
+
 ## [1.0.0-beta.0] - 2019-07-14
 
 ### Added
