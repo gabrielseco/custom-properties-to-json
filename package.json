@@ -1,0 +1,33 @@
+{
+  "name": "@rogal/custom-properties-to-json",
+  "version": "1.0.0-beta.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "custom-properties-to-json": "./bin/custom-properties-to-json.js"
+  },
+  "scripts": {
+    "lint:js": "front-linter js -- --fix",
+    "precommit": "lint-staged",
+    "test": "jest",
+    "test:watch": "jest --watchAll --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@rogal/front-linter": "^2.3.1",
+    "husky": "^3.0.0",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.1.0"
+  },
+  "dependencies": {
+    "css-tree": "^1.0.0-alpha.30"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run lint:js -- --staged ",
+      "git add"
+    ]
+  }
+}
