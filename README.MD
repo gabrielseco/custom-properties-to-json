@@ -1,4 +1,6 @@
-# custom-properties-to-json [![NPM Version](https://img.shields.io/npm/v/@rogal/custom-properties-to-json.svg)](https://www.npmjs.com/package/@rogal/custom-properties-to-json) [![NPM Downloads](https://img.shields.io/npm/dm/@rogal/custom-properties-to-json.svg)](https://www.npmjs.com/package/@rogal/custom-properties-to-json)[![Travis](https://travis-ci.org/gabrielseco/custom-properties-to-json.svg?branch=master)](https://travis-ci.org/gabrielseco/custom-properties-to-json) [![Coverage Status](https://coveralls.io/repos/github/gabrielseco/custom-properties-to-json/badge.svg?branch=master)](https://coveralls.io/github/gabrielseco/custom-properties-to-json?branch=master)
+# custom-properties-to-json
+
+[![NPM Version](https://img.shields.io/npm/v/@rogal/custom-properties-to-json.svg)](https://www.npmjs.com/package/@rogal/custom-properties-to-json) [![NPM Downloads](https://img.shields.io/npm/dm/@rogal/custom-properties-to-json.svg)](https://www.npmjs.com/package/@rogal/custom-properties-to-json)[![Travis](https://travis-ci.org/gabrielseco/custom-properties-to-json.svg?branch=master)](https://travis-ci.org/gabrielseco/custom-properties-to-json) [![Coverage Status](https://coveralls.io/repos/github/gabrielseco/custom-properties-to-json/badge.svg?branch=master)](https://coveralls.io/github/gabrielseco/custom-properties-to-json?branch=master)
 
 > Package that parses a css file with a :root pseudoselector with custom properties to a json object
 
