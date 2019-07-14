@@ -10,6 +10,8 @@
     "lint:js": "front-linter js -- --fix",
     "precommit": "lint-staged",
     "test": "jest",
+    "test:coverage": "jest --coverage",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "test:watch": "jest --watchAll --coverage"
   },
   "keywords": [],
@@ -17,6 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "@rogal/front-linter": "^2.3.1",
+    "coveralls": "^3.0.5",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
     "lint-staged": "^9.1.0"
